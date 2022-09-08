@@ -5,7 +5,7 @@ from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QPixmap
 
 global counter
-
+counter = 0
 
 class ImageLabel(QLabel):
     def __init__(self):
@@ -63,8 +63,8 @@ class AppDemo(QWidget):
 
         self.show()
 
-    # def mouseMoveEvent(self, event):
-    #     print('(%d %d)' % (event.x(), event.y()))
+    def mouseMoveEvent(self, event):
+        print('(%d %d)' % (event.x(), event.y()))
 
         # txt = "Mouse 위치 ; x={0},y={1}, global={2},{3}".format(event.x(), event.y(), event.globalX(), event.globalY())
         # self.statusbar.showMessage(txt)
@@ -78,9 +78,9 @@ class AppDemo(QWidget):
 
         # print(event.globalX())
 
-    # def mouseReleaseEvent(self, event):  # event : QMouseEvent
-    #     print('BUTTON RELEASE')
-    #     print('(%d %d) 릴리즈 위치' % (event.x(), event.y()))
+    def mouseReleaseEvent(self, event):  # event : QMouseEvent
+        print('BUTTON RELEASE')
+        print('(%d %d) 릴리즈 위치' % (event.x(), event.y()))
 
 
 
@@ -106,24 +106,16 @@ class AppDemo(QWidget):
             print(position)
 
             if 12 <= position.x() <= 486 and 12 <= position.y() <= 312:
-                self.photoViewer.setPixmap(QPixmap(file_path).scaled(500,330,Qt.IgnoreAspectRatio))
-                counter = '위'
+                counter = 0
                 print(counter)
-                files = [u.toLocalFile() for u in event.mimeData().urls()]
-                for f in files:
-                    print(f)
             elif 12 <= position.x() <= 486 and 323 <= position.y() <= 626:
-                self.photoViewer2.setPixmap(QPixmap(file_path).scaled(500,330,Qt.IgnoreAspectRatio))
-                counter = '아래'
+                counter = 1
                 print(counter)
-                files = [u.toLocalFile() for u in event.mimeData().urls()]
-                for f in files:
-                    print(f)
                 
-            # if counter == 0:
-            #     self.photoViewer.setPixmap(QPixmap(file_path).scaled(500,330,Qt.IgnoreAspectRatio))
-            # elif counter == 1:
-            #     self.photoViewer2.setPixmap(QPixmap(file_path).scaled(500,330,Qt.IgnoreAspectRatio))
+            if counter == 0:
+                self.photoViewer.setPixmap(QPixmap(file_path).scaled(500,330,Qt.IgnoreAspectRatio))
+            elif counter == 1:
+                self.photoViewer2.setPixmap(QPixmap(file_path).scaled(500,330,Qt.IgnoreAspectRatio))
     
                 # self.set_image(file_path)
             
